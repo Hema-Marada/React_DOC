@@ -1,6 +1,7 @@
 /* global ThemeContext */
-import React, { createContext } from 'react';
+import React, { createContext,useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import FunctionalComponent from './FunctionalComponent';
 import ClassComponent from './ClassComponent';
 import LifecycleExample from './LifecycleExample ';
@@ -26,19 +27,25 @@ import Integration from './Integration';
 import PostAPI from './PostAPI';
 import Task from './Task'
 import PutAPI from './PutAPI';
-import UserComponent from './UserComponent';
-import AdminComponent from './AdminComponent';
-import withAuthentication from './withAuthentication';
+
 import HocComponent from './HocComponent';
 import OAuthExample from './OAuthExample';
+import Sample from './Sample';
 
 
 
 const App = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const handleLogin = (userData) => {
+    setCurrentUser(userData);
+  };
 
   return (
     <div>
       <Router>
+      <GoogleOAuthProvider clientId="619308056017-j959m5sbg0p8ncq7lq3khmtoq137l1nl.apps.googleusercontent.com">
+
         <ThemeContext.Provider value="red">
           <Routes>
 
@@ -66,6 +73,10 @@ const App = () => {
             <Route path="/put" element={<PutAPI />} />
             <Route path="/hoc" element={<HocComponent />} />
             <Route path="auth" element={<OAuthExample />} />
+            <Route path="smpl" element={<Sample />} />
+
+        
+
 
 
      
@@ -79,10 +90,14 @@ const App = () => {
             
             {/* wild route */}
             <Route path="*" element={<NotFound />} />
+            
           </Routes>
         </ThemeContext.Provider>
+        </GoogleOAuthProvider>
+
       </Router>
       {/* <hello/> */}
+      
 
     </div>
   );

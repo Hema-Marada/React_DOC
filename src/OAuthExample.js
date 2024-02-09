@@ -13,7 +13,6 @@ function OAuthExample() {
     console.log('Login success', response);
     setIsLoggedIn(true);
   };
-  // kj
 
   const onFailure = (error) => {
     console.error('Login failure', error);
